@@ -1,0 +1,17 @@
+<launch>
+  <arg name="ctype" default="standard" />
+  <param name="collision_type" value="$(arg ctype)" /> #standard, standard_large, wide, long
+
+  <param name="use_sim_time" value="true" />
+  <include file="$(find fetch_gazebo)/launch/planner_time_testing.launch" />
+
+  <include file="$(find fetch_navigation_pro)/launch/freight_nav.launch">
+    <arg name="map_file" value="$(find fetch_gazebo_demo)/maps/test_zone.yaml" />
+  </include>
+
+  <node name="rviz" pkg="rviz" type="rviz" />
+
+  <node name="planner_timing_script" pkg="fetch_gazebo_demo" type="planner_timing_demo.py" output="screen" launch-prefix="xterm -hold -e" />
+
+</launch>
+
